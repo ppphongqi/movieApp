@@ -1,0 +1,284 @@
+.from-input-style {
+	width: 100%;
+	color: #333333;
+}
+
+.from-inputPlader-style {
+	font-size: 24upx;
+	color: #CCCCCC;
+}
+
+.from-bg-style {
+	height: 84upx;
+	line-height: 84upx;
+	border-radius: 10upx;
+	background-color: #FAFAFA;
+
+}
+
+.from-left {
+	width: 6em;
+	text-align: center;
+}
+
+.merchant-name-right {
+	flex: 1;
+}
+
+.enter-bg {
+	width: 100%;
+	height: 340upx;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	// background-position-x: 100rpx;
+	// background-position-y: -44rpx;
+
+}
+
+.form-main {
+	margin-top: -140upx;
+}
+
+.form-content .form-title .form-title-left {
+	margin-left: 16upx;
+}
+
+.form-content .form-title .form-title-left:after {
+	content: " ";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 8upx;
+	height: 26upx;
+	border-radius: 4upx;
+	background-color: #FFD940;
+	background-color: var(--theme-color);
+}
+
+.form-content .form-title text {
+	margin-left: 14upx;
+	font-size: 22upx;
+}
+
+.merchant-address-right .address-icon {
+	position: absolute;
+	right: 20upx;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 24upx !important;
+}
+
+.merchant-xx-address {
+	border-radius: 10upx;
+	background-color: #FAFAFA;
+	height: 200upx !important;
+}
+
+.xx-address-from-left {
+	padding: 30upx 32upx 0 22upx;
+}
+
+/* .merchant-xx-address-right {
+	position: absolute;
+	left: 24.5%;
+	top: 16%;
+} */
+
+/* .merchant-xx-address-right textarea {
+	cursor: auto;
+	width: 400upx !important;
+	height: 200upx !important;
+	display: block;
+	overflow: hidden;
+	font-size: 24upx;
+} */
+
+.imglist-items {
+	position: relative;
+	width: 30%;
+	padding-top: 30%;
+	margin: 0 1.6% 3%;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.imglist-items .items-img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+.imglist-items .close {
+	position: absolute;
+	right: -5%;
+	top: -5%;
+	width: 32upx;
+	height: 32upx;
+	line-height: 32upx;
+	color: #FFFFFF;
+	font-size: 24upx !important;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 50%;
+	z-index: 2;
+}
+
+.add-images {
+	display: block;
+	background-image: url("~@/static/images/addimag.png");
+}
+
+.formBtn button {
+	height: 84upx;
+	line-height: 84upx;
+	border-radius: 42upx;
+	background-color: #FFD940;
+}
+
+.applyStatus .applyStatus-logo {
+	display: block;
+	width: 324upx;
+	height: 324upx;
+	margin: 156upx auto 78upx;
+}
+
+.applyStatusBtn {
+	width: 300upx;
+	height: 80upx;
+	line-height: 80upx;
+	background: rgba(255, 217, 64, 1);
+	border-radius: 40upx;
+	margin: 60upx auto 0;
+}
+
+.shade-box {
+	margin-top: -200upx;
+}
+
+.invite-bg {
+	width: 550upx;
+	height: 670upx;
+	background-size: 540upx 670upx;
+	background-repeat: no-repeat;
+}
+
+.invite-textbox {
+	top: 260upx;
+}
+
+.invite-text {
+	padding: 0 35upx 0 65upx;
+}
+
+.commun-bg-style {
+	width: 428upx;
+	height: 80upx;
+	margin: 0 auto;
+}
+
+.commun-bg-style-top {
+	margin: 0 auto 20upx !important;
+}
+
+.commun-left .commun-mobile {
+	width: 28upx;
+	height: 28upx;
+	margin-right: 14upx;
+}
+
+.commun-left .commun-weixin {
+	width: 32upx;
+	height: 28upx;
+	margin-right: 14upx;
+}
+
+.commun-right {
+	width: 96upx;
+	height: 44upx;
+	line-height: 44upx;
+	border-radius: 6upx;
+}
+
+.commun-right.commun-right-mobile {
+	background-color: #FFD940;
+}
+
+.commun-right.commun-right-copy {
+	background-color: #10CE50;
+}
+
+.shade-close-icon {
+	font-size: 44upx !important;
+	color: #FFFFFF !important;
+}
+
+.footer-bottom {
+	height: 100upx;
+}
+
+
+/* 提交成功弹窗 */
+.success-tips {
+	width: 420rpx;
+	height: 380rpx;
+	background: #FFFFFF;
+	border-radius: 10rpx;
+	position: relative;
+}
+
+.success-tips .success-icon {
+	width: 220rpx;
+	height: 220rpx;
+	display: block;
+	margin: 0 auto -100rpx;
+	transform: translateY(-100rpx);
+}
+
+.success-btns {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.success-btn {
+	height: 84rpx;
+	line-height: 84rpx;
+	font-size: 24rpx;
+	color: #333333;
+	text-align: center;
+	border-top: 1rpx solid #EEEEEE;
+	flex: 1;
+	box-sizing: border-box;
+}
+
+.success-btn.confirm {
+	border-top: 0;
+	background: #FFD940;
+	border-radius: 0 0 10rpx 0;
+}
+
+
+.select-box {
+	padding: 20rpx 0;
+	height: 40rpx;
+	align-items: center;
+}
+
+.check {
+	width: 30rpx;
+	height: 30rpx;
+	// border-radius: 4rpx;
+	// border: 1rpx solid #999;
+	align-items: center;
+	justify-content: center;
+}
+
+.agreement-text {
+	margin-left: 10rpx;
+}

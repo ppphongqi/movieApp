@@ -1,0 +1,141 @@
+<template>
+	<view class="view-content" :style="themeColor">
+		<bargain-keepIn></bargain-keepIn>
+		<bargain-list></bargain-list>
+	</view>
+</template>
+
+<script>
+	import App from "@/common/js/app.js"
+	import BargainKeepIn from "@/components/page/pageComponents/BargainKeepIn.vue"
+	import BargainList from "@/components/page/pageComponents/BargainList.vue"
+	export default {
+		data() {
+			return {
+				data: []
+			};
+		},
+		components: {
+			BargainKeepIn,
+			BargainList
+		},
+		computed: {
+			
+		},
+		onLoad(e) {
+		
+		},
+		onShow() {
+			this.getGroupsDetail()
+		},
+		mounted() {
+			
+		},
+		methods: {
+			getGroupsDetail(order_id){
+				let _this = this;
+				App._get('groups.Groups/getGroupsGoodList', {}, function(result) {
+					_this.setData(result.data || {});
+				}, (err) => {
+					if (err.data.code === 0) {
+						uni.navigateBack({
+							delta: 1
+						});
+					}
+				});
+			},
+			toGoodsInfo(goods_id, group_id) {
+				App.navigationTo({
+					url: "pages/subPages/goods/index/index?goods_id=" + goods_id + (!!group_id?'&group_id='+ group_id:'')
+				})
+			}
+		},
+		/**
+		 * 显示/隐藏 返回顶部按钮
+		 */
+		onPageScroll(e) {
+			
+		}
+	}
+</script>
+
+<style lang="scss">
+	.view-content{
+		padding-bottom:30rpx;
+	}
+	.padding-box{
+		padding:30upx;
+		margin-left: 30upx;
+		margin-right: 30upx;
+		border-radius: 6upx;
+		background: #FFFFFF;
+		margin-bottom: 30upx;
+	}
+	.group-goods{
+		position: relative;
+		z-index:2;
+	}
+
+	.group-goods .goods-list .img-logo{
+		position: relative;
+		font-size:0;
+	}
+	
+	.group-goods .goods-list .img-logo .goods-img{
+		width:200upx;
+		height:200upx;
+		border-radius:6upx;
+		margin-right: 28upx;
+	}
+	.group-goods .goods-list .img-logo .group-num{
+		position: absolute;
+		top: 0;
+		left: 0;
+		font-size: 24upx;
+		line-height: 38upx;
+		color: #FFFFFF;
+		width:76upx;
+		height:38upx;
+		background:linear-gradient(90deg,rgba(254,80,79,1),rgba(254,133,79,1));
+		/* box-shadow:0 2upx 10upx 0 rgba(254,80,79,0.54); */
+		border-radius:6upx 0 6upx 0;
+		z-index: 2;
+		text-align: center;
+	}
+	.group-goods .goods-info .title{
+		color: #000000;
+		font-size:28upx;
+		height: 80upx;
+		font-weight:400;
+		line-height:40upx;
+	}
+	
+	.group-goods .goods-info .now{
+		color: #FE504F;
+		font-size: 34upx;
+	}
+	
+	.group-goods .goods-info .old{
+		font-size: 24upx;
+		color: #999999;
+		align-self: flex-end;
+	}
+	.group-goods .goods-info .num{
+		font-size: 24upx;
+		color: #999999;
+		width: 126upx;
+		text-align: center;
+		white-space: nowrap;
+	}
+	.group-goods .goods-info .go-group{
+		width:126upx;
+		height:50upx;
+		text-align: center;
+		line-height: 50upx;
+		background:linear-gradient(90deg,rgba(254,80,79,1),rgba(254,133,79,1));
+		box-shadow:0 2upx 10upx 0 rgba(254,80,79,0.54);
+		border-radius:25upx;
+		color:rgba(255,255,255,1);
+		font-size: 24upx;
+	}
+</style>

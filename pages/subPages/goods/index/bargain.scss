@@ -1,0 +1,245 @@
+
+.bargain-title{
+	background: #FFFFFF;
+	padding: 30rpx;
+}
+
+.bargain-info {
+	position: relative;
+	width: 80vw;
+	// height: 652rpx;
+	background: rgba(255, 255, 255, 1);
+	// margin-left: 30rpx;
+	// margin-right: 30rpx;
+	// margin-bottom: 20rpx;
+	padding: 0;
+	// margin-top: -5rpx;
+	border-radius: 0 0 10rpx 10rpx;
+	.img-center{
+		position: relative;
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+		height: 180rpx;
+		text{
+			top: 35%;
+			color: #FFFFFF;
+			font-size:44rpx;
+			font-weight:bold;
+			letter-spacing: 4rpx;
+		}
+	}
+	.info-list-box {
+		padding: 30rpx;
+		height: 480rpx;
+		line-height: 48rpx;
+		letter-spacing: 5rpx;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+	.close-btn {
+		position: absolute;
+		bottom: -80rpx;
+		color: #FFFFFF;
+		zoom: 1.5;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+
+.bargain-section{
+	background: #FFFFFF;
+	padding: 0 30rpx;
+	.bargain-shopping{
+		padding:20rpx;
+		background:rgba(255,240,233,1);
+		border-radius:10rpx;
+		.bargain-price{
+			color: #FF4444;
+		}
+	}
+}
+
+.goods-footer .bargain-footer-btn {
+	width: 352rpx;
+	height: 80rpx;
+	line-height: 80rpx;
+	text-align: center;
+	border-radius: 50rpx;
+	color: #FFFFFF;
+	font-size: 28rpx;
+	font-weight: bold;
+	margin: 17rpx 30rpx 0 0;
+}
+
+.goods-footer .bargain-footer-btn .go-buy {
+	flex: 1;
+	font-size: 24rpx;
+	color: #333333;
+	background: #FFD940;
+	border-radius: 24rpx;
+}
+
+.goods-footer .bargain-footer-btn .go-buy.has_stock{
+	color: #999999;
+	background: #EEEEEE;
+	text-align: center;
+}
+
+.goods-footer .groups-footer-btn .go-buy.notice_stock{
+	color: #FFFFFF;
+	background:linear-gradient(left,#F42F8E,#FD0B50);
+	text-align: center;
+}
+
+.goods-footer .bargain-footer-btn .go-buy.has_dealer {
+	border-radius: 24rpx;
+	margin-right: 10rpx;
+}
+
+.goods-footer .has_stock {
+	color: #999999;
+	background: #EEEEEE;
+	text-align: center;
+}
+
+.goods-footer .bargain-footer-btn .go-groups {
+	background: #FE504F;
+	// border-radius: 0 40rpx 40rpx 0;
+	border-radius: 24rpx;
+	flex: 1;
+	font-size: 24rpx;
+	color: #FFFFFF;
+}
+
+.goods-footer .bargain-footer-btn .go-groups.groups-start {}
+
+.goods-footer .bargain-footer-btn .go-groups.groups-end {
+	color: #333333;
+	background: #CCCCCC;
+}
+
+.goods-footer .bargain-footer-btn .go-buy text,
+.goods-footer .bargain-footer-btn .go-groups text {
+	line-height: 1;
+}
+
+
+
+/* 砍价时间模块 */
+.bargain-box {
+	width: 100%;
+	height: 110rpx;
+	background-repeat: no-repeat;
+	background-size: 100% 110rpx;
+}
+
+.bargain-content {
+	height: 100%;
+	/* background:linear-gradient(90deg,#F02E24,#FF5251); */
+}
+
+.bargain-content.is-groupend {
+	background: linear-gradient(90deg, #DFDFDF, rgb(238, 238, 238));
+}
+
+.bargain-content .groups-box-left {
+	margin-left: 4%;
+	width: 380rpx;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.bargain-content .groups-box-left .groups-logo {
+	width: auto;
+	vertical-align: middle;
+	margin-right: 14rpx;
+	font-style: italic;
+	color: #FFFFFF;
+	font-weight: 600;
+	font-size: 32rpx;
+}
+
+.bargain-content .groups-box-left .groups-title {
+	position: relative;
+	display: inline-block;
+	font-size: 32rpx;
+	&+.desc-old{
+		color: #FFFFFF;
+	}
+	.favourable{
+		$bg:#FFF0E9;
+		position: relative;
+		margin-left: 16rpx;
+		width: 4em;
+		height: 30rpx;
+		text-align: center;
+		line-height: 30rpx;
+		border-radius:6rpx;
+		color: #FF4444;
+		font-size: 20rpx;
+		background: $bg;
+		.rotatex{
+			position: absolute;
+			left: -8rpx;
+			width: 16rpx;
+			top: 45%;
+			height: 16rpx;
+			background: $bg;
+			transform: rotate(45deg) translateY(-50%); 
+		}
+		.pos-center{
+			width: 100%;
+		}
+	}
+}
+.bargain-content .groups-box-right {
+	$r: 50rpx;
+	color: #FE504F;
+	background: #FFF0E9;
+	position: relative;
+	right: 0;
+	padding: 0 30rpx;
+	height: 100%;
+	.dot-tip{
+		position: absolute;
+		top: 50%;
+		margin-top: -20rpx;
+		/* transform: translateY(-400%); */
+		left: -10rpx;
+		width: $r;
+		height: $r;
+		background: #FFF0E9;
+		/* border:1px solid red; */
+		transform: scaleY(1.2);
+		border-radius: $r;
+	}
+}
+
+.bargain-content .groups-box-right .groups-date {
+	position: relative;
+	z-index: 2;
+	margin-bottom: 6rpx;
+	color: #FF4444;
+	margin-right: 10rpx; 
+}
+
+.bargain-content .groups-box-right .groups-hms {
+	position: relative;
+	z-index: 2;
+	letter-spacing: 1rpx;
+	color: #FF4444;
+}
+
+.bargain-content .groups-box-right .groups-hms text {
+	display: inline-block;
+	text-align: center;
+	line-height: 32rpx;
+	background: #FF302A;
+	border-radius: 4rpx;
+	color: #FFFFFF;
+	padding: 0 4rpx;
+	margin: 0 10rpx;
+	height: 32rpx;
+}

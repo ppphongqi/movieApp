@@ -1,0 +1,865 @@
+/**
+ * 活动头部
+ */
+
+page {
+	overflow-x: hidden !important;
+}
+.active-father{
+		position: absolute;
+		width: 750rpx;
+		height: 422rpx;
+	}
+.activity-header {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center;
+	overflow-x: hidden;
+}
+
+.activity-content {
+	overflow-x: hidden;
+}
+
+.activity-like {
+	position: absolute;
+	right: 30upx;
+	top: 40upx;
+	width: 200upx;
+	height: 50upx;
+	line-height: 50upx;
+	background: rgba(255, 255, 255, 0.8);
+	border-radius: 24upx;
+	color: #FE504F;
+}
+
+.activity-like text {
+	margin-right: 8upx;
+	font-size: 26upx;
+	vertical-align: top;
+}
+
+.activity-sku-tab .activity-sku-tab-item {}
+
+.activity-sku-tab .activity-sku-tab-item>image {
+	width: 100upx;
+	height: 100upx;
+	display: block;
+	margin: 0 auto;
+}
+
+.drawflow-fgx {
+	position: absolute;
+	width: 100upx;
+	height: 100upx;
+}
+
+.drawflow-left-fgx {
+	left: 20%;
+}
+
+.drawflow-right-fgx {
+	right: 20%;
+}
+
+.drawflow-fgx>image {
+	width: 100%;
+	height: 100%;
+}
+
+/**
+ * 活动标题
+ */
+.activity-title {
+	line-height: 1.3em;
+	letter-spacing: 0.5upx;
+}
+
+.title-label {
+	vertical-align: middle;
+	white-space: nowrap;
+	font-size: 20upx;
+	background-color: rgb(254, 216, 64);
+	padding: 3upx 10upx;
+	margin-right: 16upx;
+}
+
+/**
+ * 活动价值
+ */
+.activity-price {
+	color: #FE504F;
+}
+
+/**
+ * 开奖按钮到时候及内容
+ */
+.draw-content {
+	box-shadow: 0 2upx 16upx 0 rgba(204, 204, 204, 0.8);
+	padding: 40upx 30upx 50rpx;
+	position: relative;
+}
+
+.draw-state {
+	width: 130rpx;
+	height: 58rpx;
+	line-height: 58rpx;
+	text-align: center;
+	position: absolute;
+	top: 50rpx;
+	right: 0;
+	background: rgba(255, 217, 64, .3);
+	border-radius: 29px 0px 0px 29px;
+	color: #D6B019;
+}
+
+.draw-state.already {
+	background: #F8F8F8;
+	color: #999999;
+}
+
+.bor-radius-20upx {
+	border-radius: 20upx;
+}
+
+/**
+ * 倒计时样式
+ */
+.draw-settime {
+	height: 30upx;
+	line-height: 30upx;
+	padding: 2upx 4upx;
+	border-radius: 4upx;
+	background-color: #000000;
+}
+
+/**
+ * 按钮公共样式
+ */
+
+.draw-btn-content .btn-style {
+	position: relative;
+	width: 240upx;
+	height: 240upx;
+	line-height: 240upx;
+	border-radius: 50%;
+	margin: 60upx auto;
+}
+
+/**
+ * 按钮未开始样式
+ */
+.draw-btn-content .notbtn {
+	background-color: #CCCCCC;
+}
+
+/**
+ * 按钮开始及等待开奖
+ */
+.draw-btn-content .starbtn-bg {
+	background-color: #FE504F !important;
+}
+
+.draw-btn-content .starbtn {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 210upx;
+	height: 210upx;
+	line-height: 210upx;
+	border-radius: 50%;
+	border: 2px solid #FFFFFF;
+	transform: translate(-50%, -50%);
+	background-color: #FE504F;
+}
+.draw-btn-content .starbeginbtn{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 210upx;
+	height: 210upx;
+	line-height: 210upx;
+	border-radius: 50%;
+	border: 2px solid #FFFFFF;
+	transform: translate(-50%, -50%);
+}
+
+.goods-price-FE504F {
+	color: #FE504F;
+}
+
+/**
+ * 中奖码部分内容
+ */
+.wincode-title {
+	position: relative;
+	margin: 50rpx 0 20rpx;
+}
+
+/* .wincode-title:before {
+	content: " ";
+	position: absolute;
+	right: 10%;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 134upx;
+	height: 2upx;
+	border-bottom: 1px dashed rgb(240, 240, 240);
+}
+
+.wincode-title:after {
+	content: " ";
+	position: absolute;
+	left: 10%;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 134upx;
+	height: 2upx;
+	border-bottom: 1px dashed rgb(240, 240, 240);
+} */
+
+.wincode {
+	/* width: 77%;
+	margin: 30upx auto;
+	padding: 0 23%; */
+	border-bottom: 1rpx solid #EEEEEE;
+	padding-bottom: 20rpx;
+}
+
+.wincode-style {
+	width: 150upx;
+	height: 56upx;
+	line-height: 56upx;
+	margin: 12rpx;
+}
+
+.get-more-wincode {
+	position: relative;
+	width: 330rpx;
+	height: 80rpx;
+	line-height: 80rpx;
+	background: #FE504F;
+	border-radius: 80rpx;
+	margin: 50rpx auto 36upx;
+}
+
+.get-more-wincode button {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	opacity: 0;
+}
+
+/**
+ * 商品详情
+ */
+.goods {
+	box-shadow: 0 0 20rpx 0 rgba(221, 221, 221, 0.6);
+	border-radius: 10rpx;
+	padding-top: 20rpx;
+	margin-top: 20rpx;
+}
+
+.goods .goods-discount {
+	width: 188rpx;
+	height: 52rpx;
+	line-height: 52rpx;
+	background: linear-gradient(0deg, rgba(255, 138, 68, 1) 0%, rgba(255, 68, 68, 1) 100%);
+	border-radius: 26rpx;
+	text-align: center;
+	margin: 0 auto 20rpx;
+}
+
+.goods .goods-left {
+	width: 160upx;
+	height: 160upx;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	margin-right: 30upx;
+	border-radius: 10rpx;
+	flex-shrink: 0;
+}
+
+.goods .buy-btn {
+	position: absolute;
+	right: 30upx;
+	bottom: 30upx;
+	width: 146upx;
+	height: 54upx;
+	line-height: 54upx;
+	background: #FFD940;
+	border-radius: 54upx;
+}
+
+.member-price-label {
+	color: #333333;
+	height: 0;
+	line-height: 30rpx;
+	border-width: 0rpx 10rpx 30rpx 0;
+	border-style: none solid solid;
+	border-color: transparent #000 #efd68f;
+	position: relative;
+	left: 10rpx;
+	padding-left: 6rpx;
+	border-radius: 4rpx 0 0 4rpx;
+	margin-left: -10rpx;
+}
+
+.member-coupon-price {
+	color: #efd68f;
+}
+
+.coupon-price-2 {
+	padding: 0 10rpx;
+	height: 30rpx;
+	line-height: 30rpx;
+	border-radius: 0 4rpx 4rpx 0;
+}
+
+.member-coupon-view {
+	position: relative;
+	margin-left: 12rpx;
+	top: -6rpx;
+}
+
+/**
+ * 抽奖人头像
+ */
+.goods-already-user {
+	text-align: center;
+	margin-top: 15upx;
+	height: 68upx;
+
+}
+
+.goods-already-user .user-avatar {
+	width: 55upx;
+	height: 55upx;
+	border-radius: 55upx;
+	display: inline-block;
+	margin-right: 12upx;
+	position: relative;
+	vertical-align: top;
+}
+
+.goods-already-user .user-avatar.user-more {
+	background: #F2F2F2;
+	color: #BBBBBB;
+	text-align: center;
+	line-height: 50upx;
+	z-index: 1;
+}
+
+.already-moreall {
+	color: #FBAA5B !important;
+	margin-left: 36upx;
+}
+
+.already-moreall-right {
+	color: #FBAA5B !important;
+	font-size: 24upx !important;
+}
+
+/**
+ * 抽奖规则
+ */
+.activity-sku {
+	padding: 60upx 40upx 40upx;
+}
+
+.activity-sku .activity-title-style {
+	width: 140upx;
+	height: 12upx;
+	background-color: #FFD940;
+	margin: 0 auto 30upx;
+}
+
+.activity-sku .activity-title-style view {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: -26upx;
+}
+
+/**
+ * 中奖名单
+ */
+.activity-win {
+	/* padding-top: 60upx 0; */
+}
+
+.activity-tip {
+	font-size: 30upx;
+	flex-direction: column;
+	text-align: center;
+	margin-bottom: 80upx;
+
+}
+
+.activity-tip .prize-icon {
+	color: #FE504F;
+}
+
+.activity-win .activity-win-title-style {
+	width: 140upx;
+	height: 12upx;
+	background-color: #FFD940;
+	margin: 30rpx auto 40upx;
+}
+
+.activity-win .activity-win-title-style view {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: -26upx;
+}
+
+.prize-img {
+	width: 100px;
+	margin: 0 auto 10upx;
+	height: 100px;
+}
+
+.prize-btn {
+	color: #ffffff;
+	padding: 10upx 40upx;
+	width: 220upx;
+	margin: 25upx auto 0;
+	border-radius: 60upx;
+	background: #FE504F;
+	text-align: center;
+	font-size: 14px;
+
+}
+
+.item-avatar-name {
+	flex-direction: column;
+}
+
+.item-avatar-name>image {
+	display: block;
+	width: 60upx;
+	height: 60upx;
+	border-radius: 50%;
+	margin-right: 12upx;
+}
+
+.win-list-item {
+	width: 25%;
+}
+
+.win-list-item .win-code {
+	color: #FE504F;
+}
+
+.win-list {}
+
+/**
+ * 奖品提供方
+ */
+.activity-darw {
+	padding: 60upx 0;
+}
+
+.activity-darw .activity-darw-title-style {
+	width: 164upx;
+	height: 12upx;
+	background-color: #FFD940;
+	margin: 0 auto 40upx;
+}
+.activity-darw .priceList{
+	width: 180upx;
+	height: 12upx;
+	background-color: #FFD940;
+	margin: 0 auto 40upx;
+}
+.activity-darw .priceList view{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: -26upx;
+}
+
+.activity-darw .activity-darw-title-style view {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: -26upx;
+}
+
+.store-list-item {
+	margin: 0 30upx;
+	padding: 50upx 0;
+	border-bottom: 1px solid #F0F0F0;
+}
+
+.store-list :last-child {
+	border: none !important;
+}
+
+.store-left .store-logo {
+	width: 62upx;
+	height: 62upx;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-right: 18upx;
+}
+
+.store-left .store-detail .store-inor {
+	width: 400upx;
+}
+
+.store-right .store-right-icon {
+	font-size: 24upx !important;
+	color: #999999;
+}
+
+.store-all-more .store-more-icon {
+	font-size: 24upx !important;
+	color: #999999;
+}
+
+/**
+ * 活动详情
+ */
+.activity-detail {
+	padding: 50upx 0 40upx !important;
+}
+
+.activity-detail .activity-detail-title-style {
+	width: 140upx;
+	height: 12upx;
+	background-color: #FFD940;
+	margin: 0 auto 20upx;
+}
+
+.activity-detail .activity-detail-title-style view {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: -26upx;
+}
+
+/* 底部菜单 */
+.goods-footer {
+	background: #FFFFFF;
+	text-align: center;
+	height: 106upx;
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 30;
+}
+
+.goods-footer.footer-padding {
+	padding-bottom: 20px
+}
+
+.goods-footer-item {
+	flex: 1;
+	box-sizing: border-box;
+	height: 106upx;
+	align-items: center;
+	/* position: relative; */
+}
+
+.goods-footer-item>button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	opacity: 0;
+	z-index: 8;
+}
+
+.goods-footer-item image {
+	width: 50upx;
+	height: 50upx;
+	display: inline-block;
+	margin: 0 20upx;
+}
+
+.goods-footer-item .goods-footer-item-text {
+	font-size: 24upx;
+	line-height: 1.5em;
+	color: #333333;
+	text-align: center;
+}
+
+.goods-footer .groups-footer-btn {
+	width: 352upx;
+	height: 80upx;
+	line-height: 80upx;
+	text-align: center;
+	border-radius: 50upx;
+	color: #FFFFFF;
+	font-size: 28upx;
+	font-weight: bold;
+	margin: 17upx 30upx 0 0;
+}
+
+.goods-footer .groups-footer-btn .go-buy {
+	width: 50%;
+	font-size: 24upx;
+	color: #333333;
+	border-radius: 12rpx;
+	background:rgba(255,217,64,1);
+	margin-right: 10rpx;
+}
+
+.goods-footer .groups-footer-btn .go-buy.has_stock {
+	color: #999999;
+	background: #EEEEEE;
+}
+
+.goods-footer .groups-footer-btn .go-groups {
+	border-radius: 12rpx;
+	width: 50%;
+	font-size: 24upx;
+	color: #FFFFFF;
+	background:rgba(255,68,68,1);
+}
+
+.goods-footer .groups-footer-btn .go-groups.groups-start button {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	opacity: 0;
+}
+
+.goods-footer .groups-footer-btn .go-groups.groups-end {
+	color: #333333;
+	background: #FFD940;
+}
+
+.goods-footer .groups-footer-btn .go-buy text,
+.goods-footer .groups-footer-btn .go-groups text {
+	line-height: 1;
+}
+
+.buy-button-box .buy-button.no-stock {
+	color: rgba(0, 0, 0, 0.6);
+	background: #DEDEDE;
+}
+
+/**
+ * 遮罩
+ */
+.shade-box {
+	margin-top: -200upx;
+}
+
+.invite-bg {
+	width: 626upx;
+	height: 600upx;
+	background-size: 626upx 600upx;
+	background-repeat: no-repeat;
+}
+
+.invite-textbox {
+	position: absolute;
+	left: 52%;
+	top: 65%;
+	transform: translateX(-50%);
+	width: 400upx;
+	padding: 30upx 40upx;
+	/* height: 200upx; */
+	background: linear-gradient(rgb(255, 235, 122), rgb(255, 218, 68));
+	border-radius: 20upx;
+	line-height: 36upx;
+}
+
+.invite-btn {
+	width: 354upx;
+	height: 100upx;
+	line-height: 100upx;
+	background-size: 354upx 100upx;
+	background-repeat: no-repeat;
+	margin: 0 auto;
+}
+
+.invite-btn button {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	opacity: 0;
+}
+
+.shade-close-icon {
+	font-size: 44upx !important;
+	color: #FFFFFF !important;
+}
+
+/* 引导关注弹窗 */
+.attention-box {
+	background: #FFFFFF;
+	width: 530rpx;
+	border-radius: 10rpx;
+	padding: 50rpx 50rpx 30rpx;
+	position: relative;
+}
+
+.attention-box .icon-roundclose {
+	position: absolute;
+	left: 50%;
+	bottom: -2em;
+	transform: translateX(-50%);
+	font-size: 52rpx;
+	color: #FFFFFF;
+	width: 1em;
+	height: 1em;
+	line-height: 1em;
+	text-align: center;
+}
+
+.attention-box .attention-title {}
+
+.attention-label {
+	margin-bottom: 30rpx;
+}
+
+.attention-label .label-num {
+	width: 30rpx;
+	height: 30rpx;
+	line-height: 30rpx;
+	text-align: center;
+	border-radius: 4rpx;
+	background: #FFD940;
+	margin-right: 10rpx;
+}
+
+.wechat-image {
+	width: 264rpx;
+	height: 264rpx;
+	display: block;
+	margin: 0 auto;
+}
+
+.dialogue-wechat {}
+
+.dialogue-info {
+	width: 460rpx;
+	margin: 0 auto;
+	background: #EEEEEE;
+	padding: 20rpx;
+	box-sizing: border-box;
+}
+
+.dialogue-detail {
+	position: relative;
+	border-radius: 10rpx;
+	flex: 1;
+	padding: 12rpx;
+}
+
+.dialogue-detail::after {
+	content: " ";
+	position: absolute;
+	top: 12px;
+	left: -10px;
+	width: 0;
+	height: 0;
+	border: 5px solid transparent;
+	border-right-color: #FFFFFF;
+}
+
+.wechat-img {
+	position: relative;
+	font-size: 22rpx;
+	width: 80rpx;
+	height: 80rpx;
+	text-align: center;
+	line-height: 80rpx;
+	background: #FFFFFF;
+	margin-right: 20rpx;
+}
+
+.wechat-img::after {
+	content: "公众号";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0.75);
+	font-size: 22rpx;
+	width: 100%;
+	height: 100%;
+}
+
+.dialogue-img {
+	width: 460rpx;
+	height: 60rpx;
+	display: block;
+	margin: 0 auto;
+}
+
+.dialogue-we {
+	width: 60rpx;
+	height: 60rpx;
+	display: block;
+}
+
+.community-detail {
+	border-radius: 20rpx;
+	padding-bottom: 35rpx;
+}
+
+.community-detail .icon-roundclose {
+	position: absolute;
+	left: 50%;
+	bottom: -2em;
+	font-size: 50rpx;
+	width: 1em;
+	height: 1em;
+	line-height: 1em;
+	color: #FFFFFF;
+	transform: translateX(-50%);
+}
+
+.community-detail .community-header {
+	width: 70vw;
+	height: 210rpx;
+	background-size: 100% 100%;
+}
+
+.community-detail .community-header .attention {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 153rpx;
+	height: 135rpx;
+	display: block;
+}
+
+.community-detail .community-body {
+	padding: 50rpx;
+}
+
+.community-detail .community-reply {
+	width: 200rpx;
+	height: 70rpx;
+	line-height: 70rpx;
+	background: #FFD941;
+	border-radius: 35rpx;
+	margin: 0 auto;
+}
+.img_shouzhi{
+	width: 60rpx;
+	height: 60rpx;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
