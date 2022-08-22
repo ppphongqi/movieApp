@@ -14,24 +14,15 @@ import H5Api from './static/h5/ican-H5Api.js'
 
 // hack
 // #ifdef H5
-const token = Utils.getParams('token',location.href,true)
-if(location.href.indexOf('pages/mainPages/login/openLogin') !== -1 && token) {
-	uni.setStorageSync('token',token)
+const token = Utils.getParams('token', location.href, true)
+if (location.href.indexOf('pages/mainPages/login/openLogin') !== -1 && token) {
+    uni.setStorageSync('token', token)
 }
 // #endif
 
 Vue.use(uView)
 
-// hack
-// const oldToken = uni.getStorageSync('token')
-// const oldUserId = uni.getStorageSync('user_id')
-// const oldRefereeId = uni.getStorageSync('referee_id')
-// uni.clearStorage()
-// uni.setStorageSync('token',oldToken)
-// uni.setStorageSync('user_id',oldUserId)
-// uni.setStorageSync('referee_id',oldRefereeId)
 uni.setStorageSync('isLogining', false)
-
 
 Vue.component('page-loading', Loading)
 Vue.component('write-hint', writeHint)
@@ -42,28 +33,99 @@ Vue.prototype.setData = setData
 Vue.prototype.$store = store
 Vue.prototype.$util = Utils
 
-App.mpType = 'app'
-Vue.prototype.getData = function(key){
-	return uni.getStorageSync(key);
+// Vue.prototype.siteBaseUrl = 'https://api-dy.mgmovie.net/';
+Vue.prototype.siteBaseUrl = 'https://life.wanmou.cn';
+
+Vue.prototype.sendRequest = function (param, backpage, backtype) {
+    var _self = this,
+        url = param.url,
+        data = param.data || {},
+        header = param.header,
+        token = "";
+
+    //拼接完整请求地址
+    var requestUrl = this.siteBaseUrl + url;
+    //固定参数
+    // if(!data.token){//如果参数中无token(除了小程序第一次通过code获取token的接口默认参数token = login,其他接口token参数都是在本地缓存中获取)
+    //     token = uni.getStorageSync(this.sessionKey);
+    //     if(!token){//本地无token需重新登录
+    //         _self.login(backpage, backtype);
+    //         return;
+    //     }else{
+    //         data.token = token;
+    //     }
+    // }
+    var timestamp = Date.parse(new Date()); //时间戳
+    data["timestamp"] = timestamp;
+
+    //GET或POST
+    if (param.method) {
+        param.method = param.method.toUpperCase(); //小写改为大写
+    }
+
+    //网络请求
+    uni.request({
+        url: requestUrl,
+        method: param.method || "GET",
+        header: header || {
+            'content-type': "application/json"
+        },
+        data: data,
+        success: res => {
+            // console.log("网络请求success");
+            // return res;
+            param.success(res.data)
+        },
+        fail: (e) => {
+            console.log("网络请求fail:" + JSON.stringify(e));
+            uni.showModal({
+                content: "" + e.errMsg
+            });
+
+            typeof param.fail == "function" && param.fail(e.data);
+        },
+        complete: () => {
+            // console.log("网络请求complete");
+
+            typeof param.complete == "function" && param.complete(res.data);
+            return;
+        }
+    });
 }
+
+Vue.prototype.setStorageData = function (key, value) {
+    uni.setStorage({
+        key: key,
+        data: value,
+        success: function () {
+        }
+    });
+}
+
+Vue.prototype.getStorageData = function (key) {
+    return uni.getStorageSync(key);
+}
+
+App.mpType = 'app'
+
 Vue.mixin({
     data() {
         return {
             imageRoot: AppFunction.img_root,
             theme: '',
-			canIUseGetUserProfile: false,
+            canIUseGetUserProfile: false,
         }
     },
     computed: {
-		mainMixin_userAll() {
-			return this.$store.state.userAll || {};
-		},
-		mainMixin_userInfo() {
-			return this.$store.state.userInfo || {};
-		},
-		mainMixin_memberInfo() {
-			return this.$store.state.memberInfo || {};
-		},
+        mainMixin_userAll() {
+            return this.$store.state.userAll || {};
+        },
+        mainMixin_userInfo() {
+            return this.$store.state.userInfo || {};
+        },
+        mainMixin_memberInfo() {
+            return this.$store.state.memberInfo || {};
+        },
         // 是否隐藏底部菜单
         hiddenTabBar() {
             return store.state.hiddenTabBar
@@ -98,7 +160,9 @@ Vue.mixin({
             // }
             // 20201119
             const systemInfo = store.state.systemInfo || {}
-            const { system = '', safeArea = {}, safeAreaInsets = {} } = systemInfo
+            const {
+                system = '', safeArea = {}, safeAreaInsets = {}
+            } = systemInfo
             return (system.toLowerCase().indexOf('ios') > -1 && safeArea.top > 20) || safeAreaInsets.bottom > 0
 
 
@@ -163,8 +227,8 @@ Vue.mixin({
         memberDiyFont() {
             let {
                 member_font = '会员',
-                discount_font = '优惠',
-                exclusive_font = '专享'
+                    discount_font = '优惠',
+                    exclusive_font = '专享'
             } = this.settingData.member || {}
             return {
                 member_font: member_font || '会员',
@@ -212,16 +276,16 @@ Vue.mixin({
         uni.removeStorageSync('isLogining')
     },
     onLoad() {
-		// #ifdef MP-WEIXIN
-		if (wx.getUserProfile) {
-		  this.canIUseGetUserProfile = true
-		}
-		// #endif
+        // #ifdef MP-WEIXIN
+        if (wx.getUserProfile) {
+            this.canIUseGetUserProfile = true
+        }
+        // #endif
         if (this.topColor != '#FFD940') {
             console.log(this.topColor, '=================this.topColor')
             uni.setNavigationBarColor({
-			    frontColor: this.auxiliaryColor == '#333333' ? '#00000' : '#ffffff',
-			    backgroundColor: this.topColor
+                frontColor: this.auxiliaryColor == '#333333' ? '#00000' : '#ffffff',
+                backgroundColor: this.topColor
             })
 
         }
@@ -307,22 +371,22 @@ Vue.mixin({
 
     },
     methods: {
-		 /**
-		 * 在请求页面数据之前需要进行的前置操作
-		 * 1.是小程序会静默登录（全局只请求一次）
-		 * 2.获取用户信息（每次onShow或者下拉刷新的时候都应该被请求）
-		 * 3.为了兼容老代码，不管这个方法成功失败 都会返回成功！！！！
-		 * 4.使用this.hasSilentLogin来标识是否已经执行过静默登录 其他方式都不保险 只有这样了
-		 * 5.该方法不能解决所有登录问题
-		 */
+        /**
+         * 在请求页面数据之前需要进行的前置操作
+         * 1.是小程序会静默登录（全局只请求一次）
+         * 2.获取用户信息（每次onShow或者下拉刷新的时候都应该被请求）
+         * 3.为了兼容老代码，不管这个方法成功失败 都会返回成功！！！！
+         * 4.使用this.hasSilentLogin来标识是否已经执行过静默登录 其他方式都不保险 只有这样了
+         * 5.该方法不能解决所有登录问题
+         */
         mainMixin_BeforeFetchPageData() {
             const _this = this
             const clientType = AppFunction.getClientType()
             // 已经静默登录过了或者是在H5和公众号里
             if (this.hasSilentLogin || [
-                '3',
-                '4'
-            ].indexOf(clientType) !== -1) {
+                    '3',
+                    '4'
+                ].indexOf(clientType) !== -1) {
                 return new Promise(resolve => {
                     AppFunction._get('user.index/detail', {
                         no_login: 1
@@ -333,7 +397,7 @@ Vue.mixin({
                             _this.$store.commit('userInfo', {})
                             uni.removeStorageSync('userInfo')
                         }
-						 resolve()
+                        resolve()
                     }, function () {
                         resolve()
                     })
@@ -373,56 +437,56 @@ Vue.mixin({
         },
         // 页面自定义跳转
         async navigationTo(urlData) {
-			console.log('urlData',urlData)
+            console.log('urlData', urlData)
             console.log('navigationTo', urlData)
-			// 电影票
-			if(urlData == 'pages/xxx/movie') {
-				// #ifdef H5 || MP-WEIXIN
-				try {
-					// 显示loading
-					uni.showLoading({
-						title: '跳转中...'
-					})
-					const location = await AppFunction.getLocation() || {}
-					const res = await AppFunction._postP('movie.Movie/inToMovie',{
-							latitude: location.latitude || '',
-							longitude: location.longitude || ''
-						})
-					const url = res.data || ''
-					
-					uni.hideLoading()
-					if(!url) {
-						uni.showToast({
-							icon:'none',
-							title: '未获取到url'
-						})
-						return
-					}
-					// 隐藏loading
-					// #ifdef H5
-					location.href = url
-					// #endif
-					// #ifdef MP
-					AppFunction.navigationTo({
-					    url: 'pages/mainPages/index/webview?link=' + encodeURIComponent(url)
-					})
-					// #endif
-				} catch (e) {
-					console.log('fetchCardCateRes', e)
-					return Promise.reject(e)
-					// TODO handle the exception
-				}
-				return
-				// #endif
-				// #ifndef H5 || MP-WEIXIN
-				uni.showToast({
-					title:"该平台不支持电影票",
-					icon: 'none'
-				})
-				return
-				// #endif
-				
-			}
+            // 电影票
+            if (urlData == 'pages/xxx/movie') {
+                // #ifdef H5 || MP-WEIXIN
+                try {
+                    // 显示loading
+                    uni.showLoading({
+                        title: '跳转中...'
+                    })
+                    const location = await AppFunction.getLocation() || {}
+                    const res = await AppFunction._postP('movie.Movie/inToMovie', {
+                        latitude: location.latitude || '',
+                        longitude: location.longitude || ''
+                    })
+                    const url = res.data || ''
+
+                    uni.hideLoading()
+                    if (!url) {
+                        uni.showToast({
+                            icon: 'none',
+                            title: '未获取到url'
+                        })
+                        return
+                    }
+                    // 隐藏loading
+                    // #ifdef H5
+                    location.href = url
+                    // #endif
+                    // #ifdef MP
+                    AppFunction.navigationTo({
+                        url: 'pages/mainPages/index/webview?link=' + encodeURIComponent(url)
+                    })
+                    // #endif
+                } catch (e) {
+                    console.log('fetchCardCateRes', e)
+                    return Promise.reject(e)
+                    // TODO handle the exception
+                }
+                return
+                // #endif
+                // #ifndef H5 || MP-WEIXIN
+                uni.showToast({
+                    title: "该平台不支持电影票",
+                    icon: 'none'
+                })
+                return
+                // #endif
+
+            }
             let isDiyUrl = urlData instanceof Object, // 判断跳转类型
                 currentPage = getCurrentPages().pop(),
                 pageRoute = currentPage.route || currentPage.__route__
@@ -433,53 +497,53 @@ Vue.mixin({
                     app_id
                 } = urlData
                 switch (type) {
-                case '12': // 自定义链接
-                    if (!!path) {
-                        if (this.appClientType === '3' || this.appClientType === '4') {
-                            location.href = path
-                        } else {
-                            AppFunction.navigationTo({
-                                url: 'pages/mainPages/index/webview?link=' + encodeURIComponent(path)
+                    case '12': // 自定义链接
+                        if (!!path) {
+                            if (this.appClientType === '3' || this.appClientType === '4') {
+                                location.href = path
+                            } else {
+                                AppFunction.navigationTo({
+                                    url: 'pages/mainPages/index/webview?link=' + encodeURIComponent(path)
+                                })
+                            }
+                        }
+                        break
+                    case '13': // 小程序跳转
+                        if (!!app_id) {
+                            // #ifdef MP
+                            uni.showLoading()
+                            uni.navigateToMiniProgram({
+                                appId: app_id,
+                                path: path ? path : '',
+                                fail(res) {
+                                    if (res.errMsg !== 'navigateToMiniProgram:fail cancel') {
+                                        AppFunction.showError(res.errMsg)
+                                    }
+                                },
+                                complete(res) {
+                                    uni.hideLoading()
+                                }
+                            })
+                            // #endif
+                            // #ifndef MP
+                            AppFunction.showError('当前渠道不支持跳转到小程序')
+                            // #endif
+                        }
+                        break
+                    case '14': // 拨打电话
+                        if (!!path) {
+                            uni.makePhoneCall({
+                                phoneNumber: String(path)
                             })
                         }
-                    }
-                    break
-                case '13': // 小程序跳转
-                    if (!!app_id) {
-                        // #ifdef MP
-                        uni.showLoading()
-                        uni.navigateToMiniProgram({
-                            appId: app_id,
-                            path: path ? path : '',
-                            fail(res) {
-                                if (res.errMsg !== 'navigateToMiniProgram:fail cancel') {
-                                    AppFunction.showError(res.errMsg)
-                                }
-                            },
-                            complete(res) {
-                                uni.hideLoading()
-                            }
-                        })
-                        // #endif
-                        // #ifndef MP
-                        AppFunction.showError('当前渠道不支持跳转到小程序')
-                        // #endif
-                    }
-                    break
-                case '14': // 拨打电话
-                    if (!!path) {
-                        uni.makePhoneCall({
-                            phoneNumber: String(path)
-                        })
-                    }
-                    break
-                case '99': // 自定义app内链接
-                    if (!!path) {
-                        AppFunction.navigationTo({
-						    url: path
-                        })
-                    }
-                    break
+                        break
+                    case '99': // 自定义app内链接
+                        if (!!path) {
+                            AppFunction.navigationTo({
+                                url: path
+                            })
+                        }
+                        break
                 }
             } else if (pageRoute !== urlData) {
                 console.log('哈哈哈')

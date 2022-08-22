@@ -288,7 +288,7 @@ export default {
             hotlist: [],
             dslist: [],
             city: "",
-            cityId: 2,
+            cityId: '',
             Inv: 0,
             pageNum: 0,
             // 新增加结束
@@ -530,12 +530,7 @@ export default {
             isShowLead = true;
             // #endif
             return isShowLead;
-        },
-			// tocity() {
-			// 	uni.navigateTo({
-			// 		url: "../citys/citys?currentCity=" + this.city,
-			// 	});
-			// },
+        }
     },
     beforeCreate() {
         // #ifdef MP-WEIXIN
@@ -689,6 +684,11 @@ export default {
                 this.getFirstData();
             }
         },
+				tocity() {
+					uni.navigateTo({
+						url: "/pages/citys/citys?currentCity=" + this.city,
+					});
+				},
         async getFirstData() {
             this.pageNum = this.pageNum + 1;
             try {
@@ -957,6 +957,10 @@ export default {
                 .then((res) => {
                     location = res;
                     this.city = location.city;
+                    if(this.getStorageData("city_id")) {
+                        this.city = this.getStorageData("city")
+                        this.cityId = this.getStorageData("city_id")
+                    }
                 })
                 .catch(() => Promise.resolve())
                 .then(() => {

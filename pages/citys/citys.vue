@@ -1,493 +1,596 @@
 <template>
-	<view class="page">
-		<scroll-view class="scrollList" scroll-y :scroll-into-view="scrollViewId" :style="{height:winHeight+'px'}">
-			<view class="search-bar">
-				<view class="search-bar-form">
-					<view class="search-bar-box">
-						<!-- <icon class="icon-search-in-box" type="search" size="16"></icon> -->
-						<input confirm-type="search" class="search-bar-input" placeholder="输入城市名称查询" placeholder-class="phcolor"
-						 :value="inputVal" :focus="inputShowed" @input="inputTyping" />
-						<view class="icon-clear" v-if="inputVal" @tap="clearInput">
-							<!-- #ifdef APP-PLUS || MP -->
-							<icon type="clear" :size="15"></icon>
-							<!-- #endif -->
-							<!-- #ifdef H5 -->
-							<tui-icon name="close-fill" :size="16" color="#bfbfbf"></tui-icon>
-							<!-- #endif -->
-						</view>
-					</view>
-					<label class="search-bar-label" v-if="!inputShowed" @tap="showInput">
-						<!-- <icon class="icon-search" type="search" size="16"></icon> -->
-						<view class="search-bar-text">输入城市名称查询</view>
-					</label>
-				</view>
-			</view>
-			<view class="tui-list search-result" v-if="inputShowed">
-				<view class="tui-list-cell" hover-class="tui-list-cell-hover" v-for="(item,index) in searchResult" :key="index"
-				 @tap="selectCity(item.cityId,item.cityName)" :data-name="item" :hover-stay-time='150'>
-					<view class="tui-list-cell-navigate">
-						{{item.cityName}}
-					</view>
-				</view>
-			</view>
-			<view v-if="!inputVal">
-				<view class="current-city">
-					<view class="title">定位城市</view>
-					<view class="city-name">
-						<tui-icon name="position-fill" color="#5677fc" :size="18"></tui-icon>
-						{{localCity}}
-					</view>
-				</view>
-				<view class="hot-city">
-					<view class="title">热门城市</view>
-					<view class="city-names">
-						<view class="city-name-item" v-for="(item,index) in hotCity" :key="index" hover-class="tap-city" :hover-stay-time="150"
-						 @tap="selectCity(item.cityId,item.cityName)" :data-name="item">
-							{{item.cityName}}
-						</view>
-					</view>
-				</view>
-				<view class="tui-list city-list">
-					<block v-for="(list,index) in lists" :key="index" v-if="list.data[0]">
-						<view class="tui-list-cell-divider" :id="index === 0 ? 'suoyin' : list.letter">
-							{{list.letter}}
-						</view>
-						<view class="tui-list-cell" hover-class="tui-list-cell-hover" v-for="(item,index2) in list.data" :key="index2"
-						 @tap="selectCity(item.cityId,item.cityName)" :data-name="item.cityName" :hover-stay-time='150'>
-							<view class="tui-list-cell-navigate" :class="[list.data.length-1==index?'last':'']">
-								{{item.cityName}}
-							</view>
-						</view>
-					</block>
-				</view>
-			</view>
-		</scroll-view>
-		<view class="tui-indexed-list-bar" :style="{height:indexBarHeight+'px'}" @touchstart="touchStart" @touchmove.stop="touchMove"
-		 @touchend.stop="touchEnd" @touchcancel.stop="touchCancel" v-if="!inputVal">
-			<text v-for="(items,index) in lists" :key="index" class="tui-indexed-list-text" :style="{height:indexBarItemHeight+'px'}">
-				{{index==0?"索引":items.letter}}
-			</text>
-		</view>
-		<view class="tui-indexed-list-alert" v-if="touchmove && lists[touchmoveIndex].letter">
-			{{lists[touchmoveIndex].letter}}
-		</view>
-	</view>
+    <view class="page">
+        <scroll-view
+            class="scrollList"
+            scroll-y
+            :scroll-into-view="scrollViewId"
+            :style="{ height: winHeight + 'px' }"
+        >
+            <view class="search-bar">
+                <view class="search-bar-form">
+                    <view class="search-bar-box">
+                        <!-- <icon class="icon-search-in-box" type="search" size="16"></icon> -->
+                        <input
+                            confirm-type="search"
+                            class="search-bar-input"
+                            placeholder="输入城市名称查询"
+                            placeholder-class="phcolor"
+                            :value="inputVal"
+                            :focus="inputShowed"
+                            @input="inputTyping"
+                        />
+                        <view
+                            class="icon-clear"
+                            v-if="inputVal"
+                            @tap="clearInput"
+                        >
+                            <!-- #ifdef APP-PLUS || MP -->
+                            <icon type="clear" :size="15"></icon>
+                            <!-- #endif -->
+                            <!-- #ifdef H5 -->
+                            <tui-icon
+                                name="close-fill"
+                                :size="16"
+                                color="#bfbfbf"
+                            ></tui-icon>
+                            <!-- #endif -->
+                        </view>
+                    </view>
+                    <label
+                        class="search-bar-label"
+                        v-if="!inputShowed"
+                        @tap="showInput"
+                    >
+                        <!-- <icon class="icon-search" type="search" size="16"></icon> -->
+                        <view class="search-bar-text">输入城市名称查询</view>
+                    </label>
+                </view>
+            </view>
+            <view class="tui-list search-result" v-if="inputShowed">
+                <view
+                    class="tui-list-cell"
+                    hover-class="tui-list-cell-hover"
+                    v-for="(item, index) in searchResult"
+                    :key="index"
+                    @tap="selectCity(item.cityId, item.cityName)"
+                    :data-name="item"
+                    :hover-stay-time="150"
+                >
+                    <view class="tui-list-cell-navigate">
+                        {{ item.cityName }}
+                    </view>
+                </view>
+            </view>
+            <view v-if="!inputVal">
+                <view class="current-city">
+                    <view class="title">定位城市</view>
+                    <view class="city-name">
+                        <tui-icon
+                            name="position-fill"
+                            color="#5677fc"
+                            :size="18"
+                        ></tui-icon>
+                        {{ localCity }}
+                    </view>
+                </view>
+                <view class="hot-city">
+                    <view class="title">热门城市</view>
+                    <view class="city-names">
+                        <view
+                            class="city-name-item"
+                            v-for="(item, index) in hotCity"
+                            :key="index"
+                            hover-class="tap-city"
+                            :hover-stay-time="150"
+                            @tap="selectCity(item.cityId, item.cityName)"
+                            :data-name="item"
+                        >
+                            {{ item.cityName }}
+                        </view>
+                    </view>
+                </view>
+                <view class="tui-list city-list">
+                    <block
+                        v-for="(list, index) in lists"
+                        :key="index"
+                        v-if="list.data[0]"
+                    >
+                        <view
+                            class="tui-list-cell-divider"
+                            :id="index === 0 ? 'suoyin' : list.letter"
+                        >
+                            {{ list.letter }}
+                        </view>
+                        <view
+                            class="tui-list-cell"
+                            hover-class="tui-list-cell-hover"
+                            v-for="(item, index2) in list.data"
+                            :key="index2"
+                            @tap="selectCity(item.cityId, item.cityName)"
+                            :data-name="item.cityName"
+                            :hover-stay-time="150"
+                        >
+                            <view
+                                class="tui-list-cell-navigate"
+                                :class="[
+                                    list.data.length - 1 == index ? 'last' : '',
+                                ]"
+                            >
+                                {{ item.cityName }}
+                            </view>
+                        </view>
+                    </block>
+                </view>
+            </view>
+        </scroll-view>
+        <view
+            class="tui-indexed-list-bar"
+            :style="{ height: indexBarHeight + 'px' }"
+            @touchstart="touchStart"
+            @touchmove.stop="touchMove"
+            @touchend.stop="touchEnd"
+            @touchcancel.stop="touchCancel"
+            v-if="!inputVal"
+        >
+            <text
+                v-for="(items, index) in lists"
+                :key="index"
+                class="tui-indexed-list-text"
+                :style="{ height: indexBarItemHeight + 'px' }"
+            >
+                <!-- {{ index == 0 ? "索引" : items.letter }} -->
+								{{ items.letter }}
+            </text>
+        </view>
+        <view
+            class="tui-indexed-list-alert"
+            v-if="touchmove && lists[touchmoveIndex].letter"
+        >
+            {{ lists[touchmoveIndex].letter }}
+        </view>
+    </view>
 </template>
 
 <script>
-	// const cityData = require('@/utils/city.js')
-	export default {
-		data() {
-			return {
-				lists: [],
-				touchmove: false, // 是否在索引表上滑动
-				touchmoveIndex: -1,
-				titleHeight: 0, // 索引二字距离窗口顶部的高度
-				indexBarHeight: 0, // 索引表高度
-				indexBarItemHeight: 0, // 索引表子项的高度
-				scrollViewId: '', // scroll-view滚动到的子元素的id
-				winHeight: 0,
-				inputShowed: false, // 输入框是否显示
-				inputVal: '', // 搜索框输入的内容
-				hotCity: [], // 热门城市
-				searchResult: [], // 搜索城市的结果
-				localCity: ''
-			}
-		},
-		onLoad: function(options) {
-			const that = this;
-			that.localCity = this.getData('city') || "未开启定位";
-			this.sendRequest({
-				url:'citys/list',
-				success:function(response){
-					var newList = [];
-					for (var i = 0; i < response.result.cityList.length; i++) {
-						var item = {}
-						if(newList.length > 0){
-							var inif = false
-							for (var o = 0; o < newList.length; o++) {
-								if(newList[o].letter == response.result.cityList[i].firstletter){
-									newList[o].data.push(response.result.cityList[i])
-									inif = true
-								}
-							}
-							if(!inif){
-								item.letter = response.result.cityList[i].firstletter
-								var itemchild = response.result.cityList[i]
-								item.data = []
-								item.data.push(itemchild)
-								newList.push(item)
-							}
-						}else{
-							item.letter = response.result.cityList[i].firstletter
-							var itemchild = response.result.cityList[i]
-							item.data = []
-							item.data.push(itemchild)
-							newList.push(item)
-						}
-						if(response.result.cityList[i].ishot==1){
-							that.hotCity.push(response.result.cityList[i])
-						}
-					}
-					
-					setTimeout(() => {
-						uni.getSystemInfo({
-							success: function(res) {
-								let winHeight = res.windowHeight
-								let barHeight = winHeight - uni.upx2px(204);
-								that.winHeight = winHeight;
-								that.indexBarHeight = barHeight;
-								that.indexBarItemHeight = barHeight / 25;
-								that.titleHeight = uni.upx2px(132);
-								that.lists = newList
-							}
-						})
-					}, 50)
-				}
-			})
-			
-			
-		},
-		methods: {
-			showInput() {
-				this.inputShowed = true
-			},
-			clearInput() {
-				this.inputVal = "";
-				this.inputShowed = false;
-				this.searchResult = [];
-				uni.hideKeyboard() //强行隐藏键盘
-			},
-			inputTyping(e) {
-				this.inputVal = e.detail.value;
-				this.searchCity()
-			},
-			// 搜索城市
-			searchCity() {
-				let result = []
-				this.lists.forEach((item1, index1) => {
-					item1.data.forEach((item2, index2) => {
-						if (item2.cityName.indexOf(this.inputVal.toLocaleUpperCase()) !== -1) {
-							result.push(item2)
-						}
-					})
-				})
-				this.searchResult = result
-			},
-			// 选择城市
-			selectCity(cityid,cityname) {
-				let cityName = cityname;
-				this.setData('city_id',cityid)
-				this.setData('city',cityname)
-				// console.log(cityName)
-				//返回并刷新上一页面
-				uni.navigateBack({
-					delta: 1
-				})
-			},
-			touchStart(e) {
-				this.touchmove = true
-				let pageY = e.touches[0].pageY
-				let index = Math.floor((pageY - this.titleHeight) / this.indexBarItemHeight)
-				let item = this.lists[index === 0 ? 1 : index]
-				if (item) {
-					this.scrollViewId = item.letter;
-					this.touchmoveIndex = index;
-				}
-			},
-			touchMove(e) {
-				let pageY = e.touches[0].pageY;
-				let index = Math.floor((pageY - this.titleHeight) / this.indexBarItemHeight)
-				let item = this.lists[index === 0 ? 1 : index]
-				if (item) {
-					this.scrollViewId = item.letter;
-					this.touchmoveIndex = index
-				}
-			},
-			touchEnd() {
-				this.touchmove = false;
-				this.touchmoveIndex = -1;
-			},
-			touchCancel() {
-				this.touchmove = false;
-				this.touchmoveIndex = -1;
-			}
-		}
-	}
+// const cityData = require('@/utils/city.js')
+export default {
+    data() {
+        return {
+            lists: [],
+            touchmove: false, // 是否在索引表上滑动
+            touchmoveIndex: -1,
+            titleHeight: 0, // 索引二字距离窗口顶部的高度
+            indexBarHeight: 0, // 索引表高度
+            indexBarItemHeight: 0, // 索引表子项的高度
+            scrollViewId: "", // scroll-view滚动到的子元素的id
+            winHeight: 0,
+            inputShowed: false, // 输入框是否显示
+            inputVal: "", // 搜索框输入的内容
+            hotCity: [], // 热门城市
+            searchResult: [], // 搜索城市的结果
+            localCity: "",
+        };
+    },
+    onLoad: function (options) {
+        const that = this;
+        that.localCity = this.getStorageData("city") || "未开启定位";
+        this.sendRequest({
+            // url: "citys/list",
+            url: `/web/index.php?s=api/movie.mahua/cityList&wxapp_id=1&source=9&no_login=1`,
+            success: function (response) {
+                console.log(response, '结果')
+                var newList = [];
+                for (var i = 0; i < response.data.length; i++) {
+                    var item = {};
+                    if (newList.length > 0) {
+                        var inif = false;
+                        for (var o = 0; o < newList.length; o++) {
+                            if (
+                                newList[o].letter ==
+                                response.data[i].cityPinyin
+                            ) {
+                                newList[o].data.push(
+                                    response.data[i]
+                                );
+                                inif = true;
+                            }
+                        }
+                        if (!inif) {
+                            item.letter =
+                                response.data[i].cityPinyin;
+                            var itemchild = response.data[i];
+                            item.data = [];
+                            item.data.push(itemchild);
+                            newList.push(item);
+                        }
+                    } else {
+                        item.letter = response.data[i].cityPinyin;
+                        var itemchild = response.data[i];
+                        item.data = [];
+                        item.data.push(itemchild);
+                        newList.push(item);
+                    }
+                    if (response.data[i].ishot == 1) {
+                        that.hotCity.push(response.data[i]);
+                    }
+                }
+
+								newList.sort((s1, s2) => {
+									let x1 = s1.letter.toUpperCase();
+									let x2 = s2.letter.toUpperCase();
+									if (x1 < x2) {
+											return -1
+									}
+									if (x1 > x2) {
+											return 1
+									}
+									return 0
+								})
+
+                setTimeout(() => {
+                    uni.getSystemInfo({
+                        success: function (res) {
+                            let winHeight = res.windowHeight;
+                            let barHeight = winHeight - uni.upx2px(204);
+                            that.winHeight = winHeight;
+                            that.indexBarHeight = barHeight;
+                            that.indexBarItemHeight = barHeight / 25;
+                            that.titleHeight = uni.upx2px(132);
+                            that.lists = newList;
+                        },
+                    });
+                }, 50);
+            },
+        });
+    },
+    methods: {
+        showInput() {
+            this.inputShowed = true;
+        },
+        clearInput() {
+            this.inputVal = "";
+            this.inputShowed = false;
+            this.searchResult = [];
+            uni.hideKeyboard(); //强行隐藏键盘
+        },
+        inputTyping(e) {
+            this.inputVal = e.detail.value;
+            this.searchCity();
+        },
+        // 搜索城市
+        searchCity() {
+            let result = [];
+            this.lists.forEach((item1, index1) => {
+                item1.data.forEach((item2, index2) => {
+                    if (
+                        item2.cityName.indexOf(
+                            this.inputVal.toLocaleUpperCase()
+                        ) !== -1
+                    ) {
+                        result.push(item2);
+                    }
+                });
+            });
+            this.searchResult = result;
+        },
+        // 选择城市
+        selectCity(cityid, cityname) {
+            let cityName = cityname;
+            this.setStorageData("city_id", cityid);
+            this.setStorageData("city", cityname);
+            // console.log(cityName)
+            //返回并刷新上一页面
+            uni.navigateBack({
+                delta: 1,
+            });
+        },
+        touchStart(e) {
+            this.touchmove = true;
+            let pageY = e.touches[0].pageY;
+            let index = Math.floor(
+                (pageY - this.titleHeight) / this.indexBarItemHeight
+            );
+            let item = this.lists[index === 0 ? 1 : index];
+            if (item) {
+                this.scrollViewId = item.letter;
+                this.touchmoveIndex = index;
+            }
+        },
+        touchMove(e) {
+            let pageY = e.touches[0].pageY;
+            let index = Math.floor(
+                (pageY - this.titleHeight) / this.indexBarItemHeight
+            );
+            let item = this.lists[index === 0 ? 1 : index];
+            if (item) {
+                this.scrollViewId = item.letter;
+                this.touchmoveIndex = index;
+            }
+        },
+        touchEnd() {
+            this.touchmove = false;
+            this.touchmoveIndex = -1;
+        },
+        touchCancel() {
+            this.touchmove = false;
+            this.touchmoveIndex = -1;
+        },
+    },
+};
 </script>
 
 <style>
-	page {
-		height: 100%;
-		overflow: hidden;
-	}
+page {
+    height: 100%;
+    overflow: hidden;
+}
 
-	.page {
-		height: 100%;
-		overflow: hidden;
-	}
+.page {
+    height: 100%;
+    overflow: hidden;
+}
 
-	.scrollList {
-		flex: 1;
-	}
+.scrollList {
+    flex: 1;
+}
 
-	.search-bar {
-		display: flex;
-		align-items: center;
-		position: relative;
-		padding: 27rpx 30rpx 35rpx;
-		background-color: #fff;
-	}
+.search-bar {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 27rpx 30rpx 35rpx;
+    background-color: #fff;
+}
 
-	.search-bar-form {
-		flex: 1;
-		position: relative;
-		border-radius: 32rpx;
-		background: #f2f5f7;
-	}
+.search-bar-form {
+    flex: 1;
+    position: relative;
+    border-radius: 32rpx;
+    background: #f2f5f7;
+}
 
-	.search-bar-box {
-		display: flex;
-		align-items: center;
-		position: relative;
-		padding-left: 20rpx;
-		padding-right: 20rpx;
-		height: 64rpx;
-		z-index: 1;
-	}
+.search-bar-box {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 20rpx;
+    padding-right: 20rpx;
+    height: 64rpx;
+    z-index: 1;
+}
 
-	.search-bar-input {
-		line-height: normal;
-		width: 100%;
-		padding-left: 20rpx;
-		font-size: 30rpx;
-		color: #333;
-	}
+.search-bar-input {
+    line-height: normal;
+    width: 100%;
+    padding-left: 20rpx;
+    font-size: 30rpx;
+    color: #333;
+}
 
-	.phcolor {
-		font-size: 30rpx;
-	}
+.phcolor {
+    font-size: 30rpx;
+}
 
-	.icon-clear {
-		height: 38rpx;
-	}
+.icon-clear {
+    height: 38rpx;
+}
 
-	.icon-clear .tui-icon-class {
-		display: block
-	}
-	
-	.search-bar-label {
-		height: 64rpx;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		z-index: 2;
-		border-radius: 32rpx;
-		color: #ccc;
-		background: #f2f5f7;
-	}
+.icon-clear .tui-icon-class {
+    display: block;
+}
 
-	.icon-search {
-		position: relative;
-		height: 26rpx;
-		margin-right: 20rpx;
-		font-size: inherit;
-	}
+.search-bar-label {
+    height: 64rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    border-radius: 32rpx;
+    color: #ccc;
+    background: #f2f5f7;
+}
 
-	.search-bar-text {
-		font-size: 30rpx;
-		line-height: 32rpx;
-	}
+.icon-search {
+    position: relative;
+    height: 26rpx;
+    margin-right: 20rpx;
+    font-size: inherit;
+}
 
-	.cancel-btn {
-		padding-left: 30rpx;
-	}
+.search-bar-text {
+    font-size: 30rpx;
+    line-height: 32rpx;
+}
 
-	.search-result::before {
-		display: none;
-	}
+.cancel-btn {
+    padding-left: 30rpx;
+}
 
-	.search-result::after {
-		display: none;
-	}
+.search-result::before {
+    display: none;
+}
 
-	.tui-list-cell {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		width: 100%;
-	}
+.search-result::after {
+    display: none;
+}
 
-	.tui-list-cell-hover {
-		background-color: #eee !important;
-	}
+.tui-list-cell {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
 
-	.tui-list-cell-navigate {
-		width: 100%;
-		position: relative;
-		padding: 30rpx 0 30rpx 30rpx;
-		font-size: 28rpx;
-		color: #333;
-	}
+.tui-list-cell-hover {
+    background-color: #eee !important;
+}
 
-	.tui-list-cell-navigate::after {
-		content: '';
-		position: absolute;
-		border-bottom: 1rpx solid #eaeef1;
-		-webkit-transform: scaleY(0.5);
-		transform: scaleY(0.5);
-		bottom: 0;
-		right: 0;
-		left: 30rpx;
-	}
+.tui-list-cell-navigate {
+    width: 100%;
+    position: relative;
+    padding: 30rpx 0 30rpx 30rpx;
+    font-size: 28rpx;
+    color: #333;
+}
 
-	.current-city {
-		padding: 0 30rpx 30rpx;
-		background: #fff;
-	}
+.tui-list-cell-navigate::after {
+    content: "";
+    position: absolute;
+    border-bottom: 1rpx solid #eaeef1;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    bottom: 0;
+    right: 0;
+    left: 30rpx;
+}
 
-	.tui-icon-class {
-		margin-right: 10rpx;
-	}
+.current-city {
+    padding: 0 30rpx 30rpx;
+    background: #fff;
+}
 
-	.current-city .title {
-		font-size: 24rpx;
-		line-height: 24rpx;
-		color: #999;
-	}
+.tui-icon-class {
+    margin-right: 10rpx;
+}
 
-	.city-name {
-		display: flex;
-		align-items: center;
-		margin-top: 17rpx;
-		font-size: 30rpx;
-		font-weight: bold;
-		line-height: 30rpx;
-		color: #333;
-	}
+.current-city .title {
+    font-size: 24rpx;
+    line-height: 24rpx;
+    color: #999;
+}
 
-	.hot-city .title {
-		height: 48rpx !important;
-		padding-left: 30rpx;
-		font-size: 24rpx !important;
-		line-height: 48rpx !important;
-		color: #999;
-		background: #f2f5f7 !important;
-	}
+.city-name {
+    display: flex;
+    align-items: center;
+    margin-top: 17rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+    line-height: 30rpx;
+    color: #333;
+}
 
-	.city-names {
-		/* display: flex; */
-		flex-wrap: wrap;
-		justify-content: space-between;
-		align-content: space-between;
-		width: 630rpx;
-		padding: 12rpx 90rpx 26rpx 30rpx;
-		background: #fff;
-	}
+.hot-city .title {
+    height: 48rpx !important;
+    padding-left: 30rpx;
+    font-size: 24rpx !important;
+    line-height: 48rpx !important;
+    color: #999;
+    background: #f2f5f7 !important;
+}
 
-	.city-name-item {
-		display: inline-block;
-		/* display: flex; */
-		justify-content: center;
-		align-items: center;
-		width: 140rpx;
-		height: 56rpx;
-		margin-top: 16rpx;
-		/* border: solid 1rpx #ccc; */
-		border-radius: 28rpx;
-		font-size: 28rpx;
-		color: #333;
-		position: relative;
-		text-align: center;
-		line-height:50rpx;
-		margin-left:15rpx;
-	}
+.city-names {
+    /* display: flex; */
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+    width: 630rpx;
+    padding: 12rpx 90rpx 26rpx 30rpx;
+    background: #fff;
+}
 
-	.city-name-item::before {
-		content: "";
-		position: absolute;
-		width: 200%;
-		height: 200%;
-		-webkit-transform-origin: 0 0;
-		transform-origin: 0 0;
-		-webkit-transform: scale(0.5, 0.5);
-		transform: scale(0.5, 0.5);
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-		left: 0;
-		top: 0;
-		border-radius: 56rpx;
-		border: 1px solid #ccc;
-	}
+.city-name-item {
+    display: inline-block;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    width: 140rpx;
+    height: 56rpx;
+    margin-top: 16rpx;
+    /* border: solid 1rpx #ccc; */
+    border-radius: 28rpx;
+    font-size: 28rpx;
+    color: #333;
+    position: relative;
+    text-align: center;
+    line-height: 50rpx;
+    margin-left: 15rpx;
+}
 
-	.tap-city {
-		color: #fff;
-		background: #5677fc;
-		/* border: solid 1rpx #5677fc; */
-	}
+.city-name-item::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(0.5, 0.5);
+    transform: scale(0.5, 0.5);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    left: 0;
+    top: 0;
+    border-radius: 56rpx;
+    border: 1px solid #ccc;
+}
 
-	.tui-list {
-		background-color: #fff;
-		position: relative;
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		padding-bottom: env(safe-area-inset-bottom);
-	}
+.tap-city {
+    color: #fff;
+    background: #5677fc;
+    /* border: solid 1rpx #5677fc; */
+}
 
-	.tui-list-cell-divider {
-		height: 48rpx;
-		padding-left: 30rpx;
-		font-size: 24rpx;
-		color: #999;
-		background: #f2f5f7;
-		padding: 0 30rpx;
-		display: flex;
-		align-items: center;
-	}
+.tui-list {
+    background-color: #fff;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: env(safe-area-inset-bottom);
+}
 
-	.tui-indexed-list-bar {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: flex-start;
-		z-index: 9999;
-		position: absolute;
-		top: 132rpx;
-		right: 0;
-		padding-right: 10rpx;
-		width: 44rpx;
-	}
+.tui-list-cell-divider {
+    height: 48rpx;
+    padding-left: 30rpx;
+    font-size: 24rpx;
+    color: #999;
+    background: #f2f5f7;
+    padding: 0 30rpx;
+    display: flex;
+    align-items: center;
+}
 
-	.tui-indexed-list-text {
-		font-size: 22rpx;
-		white-space: nowrap;
-	}
+.tui-indexed-list-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 9999;
+    position: absolute;
+    top: 132rpx;
+    right: 0;
+    padding-right: 10rpx;
+    width: 44rpx;
+}
 
-	.tui-indexed-list-bar.active {
-		background-color: rgb(200, 200, 200);
-	}
+.tui-indexed-list-text {
+    font-size: 22rpx;
+    white-space: nowrap;
+}
 
-	.tui-indexed-list-alert {
-		position: absolute;
-		z-index: 20;
-		width: 160rpx;
-		height: 160rpx;
-		left: 50%;
-		top: 50%;
-		margin-left: -80rpx;
-		margin-top: -80rpx;
-		border-radius: 80rpx;
-		text-align: center;
-		line-height: 160rpx;
-		font-size: 70rpx;
-		color: #fff;
-		background-color: rgba(0, 0, 0, 0.5);
-	}
+.tui-indexed-list-bar.active {
+    background-color: rgb(200, 200, 200);
+}
+
+.tui-indexed-list-alert {
+    position: absolute;
+    z-index: 20;
+    width: 160rpx;
+    height: 160rpx;
+    left: 50%;
+    top: 50%;
+    margin-left: -80rpx;
+    margin-top: -80rpx;
+    border-radius: 80rpx;
+    text-align: center;
+    line-height: 160rpx;
+    font-size: 70rpx;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+}
 </style>
