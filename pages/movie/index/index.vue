@@ -714,7 +714,7 @@ export default {
         detailtap(filmid, index) {
             console.log(filmid);
             uni.navigateTo({
-                url: "../cinema/cinema?film_id=" + filmid,
+                url: "../cinema/cinema?film_id=" + filmid + "&index=" + index,
             });
         },
         // 新增结束
